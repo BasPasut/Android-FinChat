@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "488292295010",
+    "firebase_url": "https://finchat-cf182.firebaseio.com",
+    "project_id": "finchat-cf182",
+    "storage_bucket": "finchat-cf182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488292295010:android:a662b8c850e438c1",
+        "android_client_info": {
+          "package_name": "com.example.finchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488292295010-pgl65ir0un6gtog93hsjm4smcf4gglgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.finchat",
+            "certificate_hash": "5696ec2676bddb97855a311745ea4c2a56347887"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRn3ord2Zpem8fBN9tFn5os_tUDGgYGX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488292295010-avbl7rcrfl3lnere0si912380e0h268l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

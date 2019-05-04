@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/request_single_img"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/default_avatar" />
+
+    <TextView
+        android:id="@+id/request_single_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/request_single_img"
+        android:text="@string/display_name"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/request_accept_btn"
+        android:layout_width="70dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/request_single_status"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/request_single_img"
+        android:background="@color/colorAccent"
+        android:text="ACCEPT"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/request_decline_btn"
+        android:layout_width="70dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/request_single_status"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/request_accept_btn"
+        android:background="#F8981D"
+        android:text="DECLINE" />
+
+    <TextView
+        android:id="@+id/request_single_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/request_single_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/request_single_img"
+        android:text="TextView" />
+
+</RelativeLayout>
