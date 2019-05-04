@@ -1,19 +1,15 @@
 package com.example.finchat;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -338,6 +334,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     .placeholder(R.drawable.waiting).into(messageImage);
             Picasso.get().setIndicatorsEnabled(false);
 
+            messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,MessageImageView.class);
+                    intent.putExtra("message_url",message_url);
+                    mContext.startActivity(intent);
+                }
+            });
+
             messageImage.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -402,6 +407,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             Picasso.get().load(message_url).resize(700, 0).onlyScaleDown()
                     .placeholder(R.drawable.waiting).into(messageImage);
             Picasso.get().setIndicatorsEnabled(false);
+
+            messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,MessageImageView.class);
+                    intent.putExtra("message_url",message_url);
+                    mContext.startActivity(intent);
+                }
+            });
 
             messageImage.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
