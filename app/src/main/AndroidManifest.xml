@@ -88,6 +88,10 @@
             android:resource="@array/preloaded_fonts"
             android:screenOrientation="portrait"
             android:value="@string/default_notification_channel_id" />
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{1221065061394077}"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>
