@@ -103,7 +103,7 @@ public class ProfilesActivity extends AppCompatActivity {
                        intent.putExtra("message_url",profile_image);
                        intent.putExtra("sender_name",profile_name);
                        intent.putExtra("sender_time","");
-                       intent.putExtra("filename","");
+                       intent.putExtra("filename",getFileName(profile_image));
                        startActivity(intent);
                    }
                });
@@ -290,5 +290,12 @@ public class ProfilesActivity extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
+    }
+
+    public String getFileName(String message_url){
+        String fileName = message_url.substring(message_url.lastIndexOf('/'));
+        String[] fileNameSplit = fileName.split("\\?");
+        String finalFileName = fileNameSplit[0].substring(15);
+        return finalFileName;
     }
 }

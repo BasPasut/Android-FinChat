@@ -110,7 +110,7 @@ public class FriendsActivity extends AppCompatActivity {
                 intent.putExtra("message_url",message_url);
                 intent.putExtra("sender_name",sender_name);
                 intent.putExtra("sender_time","");
-                intent.putExtra("filename","");
+                intent.putExtra("filename",getFileName(message_url));
                 startActivity(intent);
             }
         });
@@ -394,5 +394,12 @@ public class FriendsActivity extends AppCompatActivity {
         if(mCurrent_user != null){
             mCurrentUserDatabase.child("online").setValue(ServerValue.TIMESTAMP);
         }
+    }
+
+    public String getFileName(String message_url){
+        String fileName = message_url.substring(message_url.lastIndexOf('/'));
+        String[] fileNameSplit = fileName.split("\\?");
+        String finalFileName = fileNameSplit[0].substring(15);
+        return finalFileName;
     }
 }
