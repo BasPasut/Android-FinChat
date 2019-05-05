@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,9 @@ public class FriendsActivity extends AppCompatActivity {
 
 
     private FirebaseUser mCurrent_user;
+
+    String message_url;
+    String sender_name;
 
     // 0 -> not friend
     // 1 -> request_sent
@@ -99,12 +103,27 @@ public class FriendsActivity extends AppCompatActivity {
         mFriendCancel.setVisibility(View.INVISIBLE);
         mFriendCancel.setEnabled(false);
 
+        mFriendImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendsActivity.this,MessageImageView.class);
+                intent.putExtra("message_url",message_url);
+                intent.putExtra("sender_name",sender_name);
+                intent.putExtra("sender_time","");
+                intent.putExtra("filename","");
+                startActivity(intent);
+            }
+        });
+
         mUsersDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String display_name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
+
+                sender_name = display_name;
+                message_url = image;
 
                 mFriendname.setText(display_name);
                 mFriendStatus.setText(status);

@@ -64,6 +64,8 @@ public class ProfilesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profiles);
 
+        Picasso.get().setIndicatorsEnabled(false);
+
         mDisplayImage = findViewById(R.id.profile_img);
         mName = findViewById(R.id.profile_name);
         mStatus = findViewById(R.id.profile_status);
@@ -94,9 +96,22 @@ public class ProfilesActivity extends AppCompatActivity {
                mName.setText(profile_name);
                mStatus.setText(profile_status);
 
+               mDisplayImage.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent = new Intent(ProfilesActivity.this,MessageImageView.class);
+                       intent.putExtra("message_url",profile_image);
+                       intent.putExtra("sender_name",profile_name);
+                       intent.putExtra("sender_time","");
+                       intent.putExtra("filename","");
+                       startActivity(intent);
+                   }
+               });
+
 
                if(!profile_image.equals("default")) {
                    //Picasso.get().load(profile_image).placeholder(R.drawable.default_avatar).into(mDisplayImage);
+                   Picasso.get().setIndicatorsEnabled(false);
                    Picasso.get().load(profile_image).networkPolicy(NetworkPolicy.OFFLINE)
                            .placeholder(R.drawable.default_icon_v2).into(mDisplayImage, new Callback() {
                        @Override

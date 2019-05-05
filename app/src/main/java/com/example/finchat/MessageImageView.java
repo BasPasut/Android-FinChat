@@ -23,6 +23,7 @@ public class MessageImageView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_image_view);
+        Picasso.get().setIndicatorsEnabled(false);
 
         imageShow = (ImageView) findViewById(R.id.message_image_show);
         shared_btn = (ImageButton) findViewById(R.id.shared_btn);
