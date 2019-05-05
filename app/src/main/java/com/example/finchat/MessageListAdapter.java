@@ -216,6 +216,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
                 }
             });
+
             messageText.setBackgroundColor(R.drawable.message_text_background_sent);
             messageText.setTextColor(Color.WHITE);
         }

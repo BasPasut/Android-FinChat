@@ -1,7 +1,10 @@
 package com.example.finchat;
 
+import android.Manifest;
 import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,10 +21,16 @@ import com.google.firebase.database.ServerValue;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PERMISSION = 2;
+
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
+    String mPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
     private Toolbar mToolbar;
 
@@ -34,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try{
+            if(ActivityCompat.checkSelfPermission(this, mPermission) != PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{mPermission},REQUEST_CODE_PERMISSION);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        
         mAuth = FirebaseAuth.getInstance();
 
         mToolbar = findViewById(R.id.main_toolbar);

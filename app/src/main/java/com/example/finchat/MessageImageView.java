@@ -1,8 +1,14 @@
 package com.example.finchat;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,11 +19,17 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 public class MessageImageView extends AppCompatActivity {
 
     private ImageView imageShow;
     private ImageButton shared_btn,download_btn;
     private TextView sender_name,sender_time;
+
+    private final int STORAGE_EXTERNAL_PERMISSION = 1;
+    String mPermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    final int REQUEST_CODE_PERMISSION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +55,19 @@ public class MessageImageView extends AppCompatActivity {
         download_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MessageImageView.this,"Start Downloading. Please wait", Toast.LENGTH_SHORT).show();
-                new DownloadFileFromURL(MessageImageView.this).execute(message_url,"/Images/",finalFileName);
+                try{
+                    if(ActivityCompat.checkSelfPermission(MessageImageView.this, mPermission) != PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(MessageImageView.this, new String[]{mPermission},REQUEST_CODE_PERMISSION);
+                    }
+                    else{
+                        Toast.makeText(MessageImageView.this, "Start Downloading. Please wait", Toast.LENGTH_SHORT).show();
+                        new DownloadFileFromURL(MessageImageView.this).execute(message_url, "/Images/", finalFileName);
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
 
