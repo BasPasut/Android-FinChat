@@ -1,12 +1,8 @@
 package com.example.finchat;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.os.StrictMode;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,14 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -488,6 +482,20 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             String message_url = message.getMessage();
             String finalFileName = getFileName(message_url);
 
+            StorageReference storageReference = firebaseStorage.getReferenceFromUrl(message_url);
+            storageReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                @Override
+                public void onSuccess(StorageMetadata storageMetadata) {
+                    long filesize = storageMetadata.getSizeBytes();
+                    pdfsize.setText(format(filesize,2));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("Hello","not work");
+                }
+            });
+
             pdfname.setText(finalFileName);
             downloadBtn.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -554,6 +562,21 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             pdfname.setText(finalFileName);
 
+
+            StorageReference storageReference = firebaseStorage.getReferenceFromUrl(message_url);
+            storageReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                @Override
+                public void onSuccess(StorageMetadata storageMetadata) {
+                    long filesize = storageMetadata.getSizeBytes();
+                    pdfsize.setText(format(filesize,2));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("Hello","not work");
+                }
+            });
+
             downloadBtn.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -566,70 +589,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-//    class DownloadFileFromURL extends AsyncTask<String, String, String> {
-//        String pathFolder = "";
-//        String pathFile = "";
-//
-//        @Override
-//        protected String doInBackground(String... f_url) {
-//            int count;
-//
-//            try {
-//                pathFolder = Environment.getExternalStorageDirectory() + "/Finchat" + f_url[1];
-//                pathFile = pathFolder + f_url[2];
-//                File finchatFolder = new File(pathFolder);
-//                if(!finchatFolder.exists()){
-//                    finchatFolder.mkdirs();
-//                }
-//
-//                URL url = new URL(f_url[0]);
-//                URLConnection connection = url.openConnection();
-//                connection.connect();
-//
-//                // this will be useful so that you can show a tipical 0-100%
-//                // progress bar
-//                int lengthOfFile = connection.getContentLength();
-//
-//                // download the file
-//                InputStream input = new BufferedInputStream(url.openStream());
-//                FileOutputStream output = new FileOutputStream(pathFile);
-//
-//                byte data[] = new byte[1024]; //anybody know what 1024 means ?
-//                long total = 0;
-//                while ((count = input.read(data)) != -1) {
-//                    total += count;
-//                    // publishing the progress....
-//                    // After this onProgressUpdate will be called
-//                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
-//
-//                    // writing data to file
-//                    output.write(data, 0, count);
-//                }
-//
-//                // flushing output
-//                output.flush();
-//
-//                // closing streams
-//                output.close();
-//                input.close();
-//
-//
-//            } catch (Exception e) {
-//                Log.e("Error: ", e.getMessage());
-//            }
-//
-//            return pathFile;
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String file_url) {
-//            Toast.makeText(mContext,"Download success!!", Toast.LENGTH_LONG).show();
-//            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-//            StrictMode.setVmPolicy(builder.build());
-//        }
-//
-//    }
 
     public String getFileName(String message_url){
         String fileName = message_url.substring(message_url.lastIndexOf('/'));
@@ -639,15 +598,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     }
 
 
-//    public static String format(double bytes, int digits) {
-//        String[] dictionary = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-//        int index = 0;
-//        for (index = 0; index < dictionary.length; index++) {
-//            if (bytes < 1024) {
-//                break;
-//            }
-//            bytes = bytes / 1024;
-//        }
-//        return String.format("%." + digits + "f", bytes) + " " + dictionary[index];
-//    }
+    public static String format(double bytes, int digits) {
+        String[] dictionary = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+        int index = 0;
+        for (index = 0; index < dictionary.length; index++) {
+            if (bytes < 1024) {
+                break;
+            }
+            bytes = bytes / 1024;
+        }
+        return String.format("%." + digits + "f", bytes) + " " + dictionary[index];
+    }
 }

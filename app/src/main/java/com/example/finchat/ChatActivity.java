@@ -546,16 +546,6 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-//    public static long getFileSize(String fileUrl) throws IOException {
-//        int size;
-//        URL url = new URL(fileUrl);
-//        URLConnection conn = url.openConnection();
-//        size = conn.getContentLength();
-//
-//        if (size < 0) return 0;
-//        else return size;
-//    }
-
     private String getFileName(Uri uri) throws IllegalArgumentException {
         // Obtain a cursor with information regarding this uri
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
