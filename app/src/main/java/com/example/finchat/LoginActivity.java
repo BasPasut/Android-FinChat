@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        if (mAuth.getCurrentUser() != null) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -116,11 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-
-        }
-        else{
-            mLoginProgress.hide();
-            Toast.makeText(LoginActivity.this, "This user doesn't exist. Please register new account.", Toast.LENGTH_SHORT).show();
-        }
+            
     }
 }

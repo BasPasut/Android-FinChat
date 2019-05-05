@@ -18,27 +18,30 @@
             android:id="@+id/main_toolbar"
             layout="@layout/app_bar_layout" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/app_bar_background"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@android:color/black">
-
-        </com.google.android.material.tabs.TabLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_Pager"
         android:layout_width="match_parent"
-        android:layout_height="557dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
     </androidx.viewpager.widget.ViewPager>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/app_bar_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@android:color/black">
+
+    </com.google.android.material.tabs.TabLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
