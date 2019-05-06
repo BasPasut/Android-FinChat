@@ -71,7 +71,6 @@ public class FriendsActivity extends AppCompatActivity {
         }
 
         mRootDatabase = FirebaseDatabase.getInstance().getReference();
-        mRootDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mUsersDatabase.keepSynced(true);
         mFriendRequestDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
@@ -322,6 +321,8 @@ public class FriendsActivity extends AppCompatActivity {
                     hideChat.put("Chat/" + mCurrent_user.getUid() + "/" + user_id, null);
                     hideChat.put("Chat/" + user_id + "/" + mCurrent_user.getUid(), null);
 
+                    mRootDatabase.updateChildren(hideChat);
+
                     mRootDatabase.updateChildren(unFriendMap, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
@@ -340,8 +341,6 @@ public class FriendsActivity extends AppCompatActivity {
                             mFriendRequest.setEnabled(true);
                         }
                     });
-
-                    mRootDatabase.updateChildren(hideChat);
                 }
             }
         });

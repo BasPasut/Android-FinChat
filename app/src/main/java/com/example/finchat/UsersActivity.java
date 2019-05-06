@@ -53,7 +53,7 @@ public class UsersActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
 
-        user_search_btn = (ImageButton) findViewById(R.id.user_search_btn);
+        user_search_btn = findViewById(R.id.user_search_btn);
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mUsersDatabase.keepSynced(true);

@@ -21,7 +21,7 @@ public class SplashGIFActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_gif);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         //Typeface custom_font = Typeface.createFromAsset(getAssets(),  "/fonts/ATL.ttf");
 
         //welcome_txt.setTypeface(custom_font);

@@ -37,11 +37,11 @@ public class MessageImageView extends AppCompatActivity {
         setContentView(R.layout.activity_message_image_view);
         Picasso.get().setIndicatorsEnabled(false);
 
-        imageShow = (ImageView) findViewById(R.id.message_image_show);
-        shared_btn = (ImageButton) findViewById(R.id.shared_btn);
-        download_btn = (ImageButton) findViewById(R.id.download_btn);
-        sender_name = (TextView) findViewById(R.id.sender_name);
-        sender_time = (TextView) findViewById(R.id.sender_time);
+        imageShow = findViewById(R.id.message_image_show);
+        shared_btn = findViewById(R.id.shared_btn);
+        download_btn = findViewById(R.id.download_btn);
+        sender_name = findViewById(R.id.sender_name);
+        sender_time = findViewById(R.id.sender_time);
 
         String message_url = getIntent().getStringExtra("message_url");
         String senderName = getIntent().getStringExtra("sender_name");

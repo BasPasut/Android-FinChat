@@ -29,6 +29,8 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
         String click_action = remoteMessage.getNotification().getClickAction();
 
         String from_user_id = remoteMessage.getData().get("from_user_id");
+        String to_user_id = remoteMessage.getData().get("to_user_id");
+        String from_user_name = remoteMessage.getData().get("from_user_name");
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -38,7 +40,10 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
 
 
         Intent resultIntent = new Intent(click_action);
+        //resultIntent.putExtra("user_id",to_user_id);
+        resultIntent.putExtra("user_name",from_user_name);
         resultIntent.putExtra("user_id",from_user_id);
+
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(

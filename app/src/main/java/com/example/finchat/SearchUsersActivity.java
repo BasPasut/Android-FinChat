@@ -60,9 +60,9 @@ public class SearchUsersActivity extends AppCompatActivity {
         View action_bar_view = inflater.inflate(R.layout.search_custom_bar, null);
         actionBar.setCustomView(action_bar_view);
 
-        search_text = (EditText) findViewById(R.id.search_box);
-        search_btn = (ImageButton) findViewById(R.id.search_btn);
-        search_users_list = (RecyclerView) findViewById(R.id.search_users_list);
+        search_text = findViewById(R.id.search_box);
+        search_btn = findViewById(R.id.search_btn);
+        search_users_list = findViewById(R.id.search_users_list);
 
         search_users_list.setHasFixedSize(true);
         search_users_list.setLayoutManager(new LinearLayoutManager(this));

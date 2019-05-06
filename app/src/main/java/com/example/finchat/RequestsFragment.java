@@ -74,7 +74,7 @@ public class RequestsFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
 
-        request_list = (RecyclerView) RequestFragmentView.findViewById(R.id.request_list);
+        request_list = RequestFragmentView.findViewById(R.id.request_list);
         request_list.setHasFixedSize(true);
         request_list.setLayoutManager(linearLayoutManager);
 
@@ -285,17 +285,17 @@ public class RequestsFragment extends Fragment {
         }
 
         public void setName(String name){
-            TextView from_user_name = (TextView) mView.findViewById(R.id.request_single_name);
+            TextView from_user_name = mView.findViewById(R.id.request_single_name);
             from_user_name.setText(name);
         }
 
         public void setStatus (String status){
-            TextView request_status = (TextView) mView.findViewById(R.id.request_single_status);
+            TextView request_status = mView.findViewById(R.id.request_single_status);
             request_status.setText(status);
         }
 
         public void setImage(String image){
-            CircleImageView from_user_img = (CircleImageView) mView.findViewById(R.id.request_single_img);
+            CircleImageView from_user_img = mView.findViewById(R.id.request_single_img);
             Picasso.get().load(image).into(from_user_img);
         }
 
