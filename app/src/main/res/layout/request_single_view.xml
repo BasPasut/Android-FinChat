@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingEnd="4dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/request_single_img"
@@ -12,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="15dp"
         android:src="@drawable/default_avatar" />
 
@@ -36,7 +37,7 @@
         android:layout_height="37dp"
         android:layout_below="@+id/request_single_status"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/request_single_img"
         android:background="@color/colorAccent"
         android:text="ACCEPT"
@@ -48,7 +49,7 @@
         android:layout_height="37dp"
         android:layout_below="@+id/request_single_status"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/request_accept_btn"
         android:background="#F8981D"
         android:text="DECLINE" />
@@ -59,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/request_single_name"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/request_single_img"
         android:text="TextView" />
 

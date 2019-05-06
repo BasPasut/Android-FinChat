@@ -2,7 +2,10 @@
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const chatModule = require('./chat');
 admin.initializeApp(functions.config().firebase);
+
+exports.chat = functions.database.ref('/messages/{user_id}/{from_user_id}/{message_id}').onWrite(chatModule.handler);
 
 exports.sendNotification = functions.database.ref('/notifications/{user_id}/{notification_id}').onWrite((change, context) => {
 

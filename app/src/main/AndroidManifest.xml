@@ -43,7 +43,11 @@
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.example.finchat_TARGET_CHAT_NOTIFICATION" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UsersActivity"
             android:parentActivityName=".MainActivity"
