@@ -35,7 +35,7 @@ public class SplashGIFActivity extends AppCompatActivity {
                 startActivity(main_intent);
                 finish();
             }
-        },3000);
+        },1500);
 
     }
 }

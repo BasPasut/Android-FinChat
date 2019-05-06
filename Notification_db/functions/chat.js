@@ -24,7 +24,7 @@ exports.handler = ((change,context) => {
               },
               data : {
                 from_user_id : from_user_id,
-                message_body : message_body
+                from_user_name : userName
               }
             };
         

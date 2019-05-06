@@ -29,7 +29,8 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
         String click_action = remoteMessage.getNotification().getClickAction();
 
         String from_user_id = remoteMessage.getData().get("from_user_id");
-        Log.d("test",from_user_id);
+        String from_user_name = remoteMessage.getData().get("from_user_name");
+        Log.d("test",click_action);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -40,7 +41,7 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
 
         Intent resultIntent = new Intent(click_action);
         resultIntent.putExtra("user_id",from_user_id);
-
+        resultIntent.putExtra("user_name",from_user_name);
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -64,61 +65,4 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
 
     }
 
-//    @Override
-//    public void onMessageReceived(RemoteMessage remoteMessage) {
-//        // Check if message contains a data payload.
-//        if (remoteMessage.getData().size() > 0) {
-//            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-//            JSONObject data = new JSONObject(remoteMessage.getData());
-//        }
-//
-//        // Check if message contains a notification payload.
-//        if (remoteMessage.getNotification() != null) {
-//            String notification_title = remoteMessage.getNotification().getTitle();
-//            String notification_message = remoteMessage.getNotification().getBody();
-//
-//            String click_action = remoteMessage.getNotification().getClickAction();
-//
-//            String from_user_id = remoteMessage.getData().get("from_user_id");
-//
-//            Log.d(TAG, "Message Notification Title: " + notification_title);
-//            Log.d(TAG, "Message Notification Body: " + notification_message);
-//            Log.d(TAG, "Message Notification click_action: " + click_action);
-//
-//            sendNotification(notification_title, notification_message,click_action,from_user_id);
-//        }
-//    }
-//
-//    @Override
-//    public void onDeletedMessages() {
-//
-//    }
-//
-//    private void sendNotification(String title,String messageBody, String click_action, String from_user_id) {
-//
-//        Intent resultIntent = new Intent(click_action);
-//        resultIntent.putExtra("user_id",from_user_id);
-//
-//        PendingIntent resultPendingIntent =
-//                PendingIntent.getActivity(
-//                        this,
-//                        0,
-//                        resultIntent,
-//                        PendingIntent.FLAG_UPDATE_CURRENT
-//                );
-//
-//        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.drawable.icon_round)
-//                .setContentTitle(title)
-//                .setContentText(messageBody)
-//                .setAutoCancel(true)
-//                .setSound(defaultSoundUri)
-//                .setContentIntent(resultPendingIntent);
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-//    }
 }
