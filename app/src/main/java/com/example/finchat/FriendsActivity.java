@@ -71,7 +71,7 @@ public class FriendsActivity extends AppCompatActivity {
         }
 
         mRootDatabase = FirebaseDatabase.getInstance().getReference();
-
+        mRootDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mUsersDatabase.keepSynced(true);
         mFriendRequestDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");

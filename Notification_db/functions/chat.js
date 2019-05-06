@@ -19,8 +19,7 @@ exports.handler = ((change,context) => {
               notification: {
                 title : "New Message Incoming",
                 body: `${userName}: ` + message_body,
-                icon: "default",
-                click_action : "com.example.finchat_TARGET_CHAT_NOTIFICATION"
+                icon: "default"
               },
               data : {
                 from_user_id : from_user_id,

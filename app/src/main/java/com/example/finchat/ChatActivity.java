@@ -101,6 +101,7 @@ public class ChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUserId);
+        mUserDatabase.keepSynced(true);
 
         mChatToolbar = findViewById(R.id.chat_bar_layout);
         setSupportActionBar(mChatToolbar);
@@ -161,7 +162,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     long lastOnline = Long.parseLong(online);
 
-                    String lastOnlineTime = GetTimeAgo.getTimeAgo(lastOnline, getApplicationContext());
+                    String lastOnlineTime = getTimeAgo.getTimeAgo(lastOnline, getApplicationContext());
 
                     mLastOnline.setText(lastOnlineTime);
                 }
@@ -183,8 +184,6 @@ public class ChatActivity extends AppCompatActivity {
                     chatAddMap.put("seen",false);
                     chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
-                    Log.d("test",mChatUser);
-                    Log.d("test",mCurrentUserId);
                     Map chatUserMap = new HashMap();
                     chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
                     chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId, chatAddMap);
@@ -321,7 +320,6 @@ public class ChatActivity extends AppCompatActivity {
                                 messageMap.put("type","image");
                                 messageMap.put("time",ServerValue.TIMESTAMP);
                                 messageMap.put("from",mCurrentUserId);
-                                messageMap.put("to",mChatUser);
 
                                 Map messageUserMap = new HashMap();
                                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -373,7 +371,6 @@ public class ChatActivity extends AppCompatActivity {
                                 messageMap.put("type","pdf");
                                 messageMap.put("time",ServerValue.TIMESTAMP);
                                 messageMap.put("from",mCurrentUserId);
-                                messageMap.put("to",mChatUser);
 
                                 Map messageUserMap = new HashMap();
                                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -522,7 +519,6 @@ public class ChatActivity extends AppCompatActivity {
             messageMap.put("type", "text");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("from", mCurrentUserId);
-            messageMap.put("to",mChatUser);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
