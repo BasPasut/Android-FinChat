@@ -53,7 +53,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.example.finchat_TARGET_NOTIFICATION" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
         <activity

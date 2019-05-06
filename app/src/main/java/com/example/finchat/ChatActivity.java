@@ -321,6 +321,7 @@ public class ChatActivity extends AppCompatActivity {
                                 messageMap.put("type","image");
                                 messageMap.put("time",ServerValue.TIMESTAMP);
                                 messageMap.put("from",mCurrentUserId);
+                                messageMap.put("to",mChatUser);
 
                                 Map messageUserMap = new HashMap();
                                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -372,6 +373,7 @@ public class ChatActivity extends AppCompatActivity {
                                 messageMap.put("type","pdf");
                                 messageMap.put("time",ServerValue.TIMESTAMP);
                                 messageMap.put("from",mCurrentUserId);
+                                messageMap.put("to",mChatUser);
 
                                 Map messageUserMap = new HashMap();
                                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -520,6 +522,7 @@ public class ChatActivity extends AppCompatActivity {
             messageMap.put("type", "text");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("from", mCurrentUserId);
+            messageMap.put("to",mChatUser);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);

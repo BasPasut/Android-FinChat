@@ -30,7 +30,7 @@ public class NotificationService extends com.google.firebase.messaging.FirebaseM
 
         String from_user_id = remoteMessage.getData().get("from_user_id");
         String from_user_name = remoteMessage.getData().get("from_user_name");
-        Log.d("test",click_action);
+        String to_user_name = remoteMessage.getData().get("to_user_name");
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
