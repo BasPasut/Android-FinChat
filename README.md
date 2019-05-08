@@ -62,7 +62,7 @@ StartPage|MainPage|UsersPage|ProfilePage
   - Add, cancel, and decline friend request
   - Receive notification when chat incoming, and added friend
 - **Chats Function**
- - Can send many type of message
+  - Can send many type of message
     - Plain text/ Hyperlink
     - Image (including .gif)
     - PDF file (still bug if file is too big)
