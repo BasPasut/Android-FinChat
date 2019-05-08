@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -327,9 +328,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             String finalFileName = getFileName(message_url);
 
 
-            Picasso.get().load(message_url).resize(700, 0).onlyScaleDown()
-                    .placeholder(R.drawable.waiting).into(messageImage);
-            Picasso.get().setIndicatorsEnabled(false);
+            Glide.with(imageSentView).load(message_url).override(700,0).placeholder(R.drawable.waiting).into(messageImage);
 
             messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -406,9 +405,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             String message_url = message.getMessage();
             String finalFileName = getFileName(message_url);
 
-            Picasso.get().load(message_url).resize(700, 0).onlyScaleDown()
-                    .placeholder(R.drawable.waiting).into(messageImage);
-            Picasso.get().setIndicatorsEnabled(false);
+            Glide.with(itemView).load(message_url).override(700,0).placeholder(R.drawable.waiting).into(messageImage);
 
             messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -50,7 +51,7 @@ public class MessageImageView extends AppCompatActivity {
 
         sender_name.setText(senderName);
         sender_time.setText(senderTime);
-        Picasso.get().load(message_url).into(imageShow);
+        Glide.with(MessageImageView.this).load(message_url).into(imageShow);
 
         download_btn.setOnClickListener(new View.OnClickListener() {
             @Override
