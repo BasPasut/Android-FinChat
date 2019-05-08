@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,11 +55,15 @@ public class ProfilesActivity extends AppCompatActivity {
     private CircleImageView mDisplayImage;
     private TextView mName;
     private TextView mStatus;
-    private Button mStatusButton,mImageButton;
+    private Button mStatusButton,mImageButton, mCoverButton;
+    private ImageView mImageCover;
 
     private ProgressDialog mProgressDialog;
 
     private static final int GALLERY_PICK = 2;
+    private static final int GALLERY_PICK_COVER = 4;
+
+    private int checkCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,8 @@ public class ProfilesActivity extends AppCompatActivity {
         mStatus = findViewById(R.id.profile_status);
         mStatusButton = findViewById(R.id.profile_cStatus);
         mImageButton = findViewById(R.id.profile_cImage);
+        mCoverButton = findViewById(R.id.profile_cCover);
+        mImageCover = findViewById(R.id.profile_bg);
 
 
         mProgressDialog = new ProgressDialog(this);
@@ -90,8 +98,8 @@ public class ProfilesActivity extends AppCompatActivity {
 
                String profile_name = dataSnapshot.child("name").getValue().toString();
                final String profile_image = dataSnapshot.child("image").getValue().toString();
+               final String profile_cover = dataSnapshot.child("image_cover").getValue().toString();
                String profile_status = dataSnapshot.child("status").getValue().toString();
-               String profile_thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                mName.setText(profile_name);
                mStatus.setText(profile_status);
@@ -122,6 +130,21 @@ public class ProfilesActivity extends AppCompatActivity {
                        @Override
                        public void onError(Exception e) {
                            Picasso.get().load(profile_image).placeholder(R.drawable.default_icon_v2).into(mDisplayImage);
+                       }
+                   });
+               }
+
+               if(!profile_cover.equals("default")){
+                   Picasso.get().setIndicatorsEnabled(false);
+                   Picasso.get().load(profile_cover).networkPolicy(NetworkPolicy.OFFLINE).into(mImageCover, new Callback() {
+                       @Override
+                       public void onSuccess() {
+
+                       }
+
+                       @Override
+                       public void onError(Exception e) {
+                           Picasso.get().load(profile_cover).into(mImageCover);
                        }
                    });
                }
@@ -157,6 +180,13 @@ public class ProfilesActivity extends AppCompatActivity {
                 OpenGallery();
             }
         });
+
+        mCoverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenGalleryForCover();
+            }
+        });
     }
 
     @Override
@@ -185,6 +215,13 @@ public class ProfilesActivity extends AppCompatActivity {
         startActivityForResult(gallery_intent,GALLERY_PICK);
     }
 
+    private void OpenGalleryForCover(){
+        Intent gallery_intent = new Intent();
+        gallery_intent.setAction(Intent.ACTION_PICK);
+        gallery_intent.setType("image/*");
+        startActivityForResult(gallery_intent,GALLERY_PICK_COVER);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -192,11 +229,20 @@ public class ProfilesActivity extends AppCompatActivity {
 
         if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
 
+            checkCode = 0;
             Uri imageUri = data.getData();
             CropImage.activity(imageUri)
                     .setAspectRatio(1,1)
                     .start(this);
 
+        }
+
+        else if (requestCode == GALLERY_PICK_COVER && resultCode == RESULT_OK){
+            checkCode = 1;
+            Uri imageUri = data.getData();
+            CropImage.activity(imageUri)
+                    .setAspectRatio(4,2)
+                    .start(this);
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -237,54 +283,93 @@ public class ProfilesActivity extends AppCompatActivity {
 
                 final StorageReference filepath = mImageStorage.child("profile_images").child(user_id +".jpg");
                 final StorageReference thumb_filepath = mImageStorage.child("profile_images").child("thumbs").child(user_id + ".jpg");
+                final StorageReference coverFilepath = mImageStorage.child("profile_covers").child(user_id+".jpg");
 
-                filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful()) {
-                            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    final Uri download_uri = uri;
-                                    UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
-                                    uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
-                                            thumb_task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                @Override
-                                                public void onSuccess(Uri uri) {
+                Log.d("testCheckcode",checkCode+"");
+
+                if(checkCode == 0) {
+                    filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        final Uri download_uri = uri;
+                                        UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
+                                        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+                                                thumb_task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
                                                         Map update_HashMap = new HashMap();
-                                                        update_HashMap.put("image",download_uri.toString());
+                                                        update_HashMap.put("image", download_uri.toString());
                                                         update_HashMap.put("thumb_image", uri.toString());
 
                                                         mUserDatabase.updateChildren(update_HashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                if(task.isSuccessful()){
+                                                                if (task.isSuccessful()) {
                                                                     mProgressDialog.dismiss();
                                                                     Toast.makeText(ProfilesActivity.this, "Success", Toast.LENGTH_LONG).show();
-                                                                }
-                                                                else{
+                                                                } else {
                                                                     Toast.makeText(ProfilesActivity.this, "Error, uploading thumbnail", Toast.LENGTH_LONG).show();
                                                                 }
                                                             }
                                                         });
+                                                    }
+                                                });
+
+                                            }
+                                        });
+
+
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(ProfilesActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                mProgressDialog.dismiss();
+                            }
+                        }
+                    });
+                }
+
+                else if(checkCode == 1){
+                    coverFilepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if(task.isSuccessful()) {
+                                coverFilepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        final Uri download_uri = uri;
+                                        Map update_HashMap = new HashMap();
+                                        update_HashMap.put("image_cover",download_uri.toString());
+
+                                        mUserDatabase.updateChildren(update_HashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    mProgressDialog.dismiss();
+                                                    Toast.makeText(ProfilesActivity.this, "Success", Toast.LENGTH_LONG).show();
                                                 }
-                                            });
+                                                else{
+                                                    Toast.makeText(ProfilesActivity.this, "Error, uploading thumbnail", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
 
-                                        }
-                                    });
-
-
-                                }
-                            });
+                                    }
+                                });
+                            }
+                            else{
+                                Toast.makeText(ProfilesActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                mProgressDialog.dismiss();
+                            }
                         }
-                        else{
-                            Toast.makeText(ProfilesActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                            mProgressDialog.dismiss();
-                        }
-                    }
-                });
+                    });
+                }
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();

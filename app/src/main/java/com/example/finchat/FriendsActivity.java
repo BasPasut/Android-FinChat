@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import java.util.Map;
 public class FriendsActivity extends AppCompatActivity {
 
     private CircleImageView mFriendImg;
+    private ImageView mFriendCover;
     private TextView mFriendname,mFriendStatus,mProfileFriendsCount;
     private Button mFriendRequest,mFriendCancel;
 
@@ -90,6 +92,7 @@ public class FriendsActivity extends AppCompatActivity {
         mFriendStatus = findViewById(R.id.friend_status);
         mFriendRequest = findViewById(R.id.friend_request_btn);
         mFriendCancel = findViewById(R.id.friend_cancel_btn);
+        mFriendCover = findViewById(R.id.friend_cover);
 
         mProgresDialog = new ProgressDialog(this);
         mProgresDialog.setTitle("Loading Friend Profile");
@@ -120,6 +123,7 @@ public class FriendsActivity extends AppCompatActivity {
                 String display_name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
+                String image_cover = dataSnapshot.child("image_cover").getValue().toString();
 
                 sender_name = display_name;
                 message_url = image;
@@ -128,6 +132,7 @@ public class FriendsActivity extends AppCompatActivity {
                 mFriendStatus.setText(status);
 
                 Picasso.get().load(image).placeholder(R.drawable.default_icon_v2).into(mFriendImg);
+                Picasso.get().load(image_cover).placeholder(R.drawable.profile_activity_background).into(mFriendCover);
 
                 if(mCurrent_user.getUid().equals(user_id)){
 

@@ -166,6 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         userMap.put("status", "Hello world!!");
                                         userMap.put("image", "default");
                                         userMap.put("thumb_image", "default");
+                                        userMap.put("image_cover","default");
                                         userMap.put("device_token", deviceToken);
 
                                         mDatabase.setValue(userMap).addOnCompleteListener(task1 -> {
