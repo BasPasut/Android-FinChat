@@ -55,7 +55,7 @@ public class ProfilesActivity extends AppCompatActivity {
     private CircleImageView mDisplayImage;
     private TextView mName;
     private TextView mStatus;
-    private Button mStatusButton,mImageButton, mCoverButton;
+    private CircleImageView mStatusButton,mImageButton, mCoverButton;
     private ImageView mImageCover;
 
     private ProgressDialog mProgressDialog;
@@ -241,7 +241,7 @@ public class ProfilesActivity extends AppCompatActivity {
             checkCode = 1;
             Uri imageUri = data.getData();
             CropImage.activity(imageUri)
-                    .setAspectRatio(4,2)
+                    .setAspectRatio(16,9)
                     .start(this);
         }
 

@@ -1,0 +1,132 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="90dp"></corners>
+    <stroke android:color="@color/colorPrimary" android:width="4dp"></stroke>
+    <padding android:bottom="15dp" android:left="15dp" android:right="15dp" android:top="15dp"></padding>
+    <!--<item android:top="8px">-->
+        <!--<layer-list>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimary" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="3px"-->
+                        <!--android:left="3px"-->
+                        <!--android:right="3px"-->
+                        <!--android:top="3px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimaryDark" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="2px"-->
+                        <!--android:left="2px"-->
+                        <!--android:right="2px"-->
+                        <!--android:top="2px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimary" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="2px"-->
+                        <!--android:left="2px"-->
+                        <!--android:right="2px"-->
+                        <!--android:top="2px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimaryDark" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimary" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimaryDark" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimary" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="@color/colorPrimaryDark" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="#16000000" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!--<item>-->
+                <!--<shape android:shape="rectangle">-->
+                    <!--<solid android:color="#17000000" />-->
+                    <!--<corners android:radius="90dp" />-->
+                    <!--<padding-->
+                        <!--android:bottom="1px"-->
+                        <!--android:left="1px"-->
+                        <!--android:right="1px"-->
+                        <!--android:top="1px" />-->
+                <!--</shape>-->
+            <!--</item>-->
+        <!--</layer-list>-->
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape android:shape="rectangle">-->
+            <!--<solid android:color="#FFF" />-->
+            <!--<corners android:radius="90dp" />-->
+            <!--<padding-->
+                <!--android:bottom="15dp"-->
+                <!--android:left="15dp"-->
+                <!--android:right="15dp"-->
+                <!--android:top="15dp" />-->
+        <!--</shape>-->
+    <!--</item>-->
+
+
+</shape>
