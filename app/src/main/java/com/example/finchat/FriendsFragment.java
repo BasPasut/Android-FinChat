@@ -56,6 +56,7 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Picasso.get().setIndicatorsEnabled(false);
         mMainView = inflater.inflate(R.layout.fragment_friends, container, false);
 
         mFriendList = mMainView.findViewById(R.id.friends_list);
@@ -98,75 +99,76 @@ public class FriendsFragment extends Fragment {
                 mUserDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String name = dataSnapshot.child("name").getValue().toString();
+                            String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
+                            String online_status = dataSnapshot.child("online").getValue().toString();
 
-                        String name = dataSnapshot.child("name").getValue().toString();
-                        String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
-                        String online_status = dataSnapshot.child("online").getValue().toString();
+                            friendsViewHolder.setName(name);
+                            friendsViewHolder.setThumbImage(thumb_image);
 
-                        friendsViewHolder.setName(name);
-                        friendsViewHolder.setThumbImage(thumb_image);
+                            if (dataSnapshot.hasChild("online")) {
+                                friendsViewHolder.setStatus(online_status);
 
-                        if(dataSnapshot.hasChild("online")) {
-                            friendsViewHolder.setStatus(online_status);
-
-                            if(online_status.contains("true")){
-                                friendsViewHolder.setStatusText("Online");
-                            }
-                            else{
-                                GetTimeAgo getTimeAgo = new GetTimeAgo();
-
-                                long lastOnline = Long.parseLong(online_status);
-
-                                String lastOnlineTime = GetTimeAgo.getTimeAgo(lastOnline, getContext());
-
-                                try {
-                                    friendsViewHolder.setStatusText(lastOnlineTime);
-                                }
-                                catch (NullPointerException e){
+                                if (online_status.contains("true")) {
                                     friendsViewHolder.setStatusText("Online");
+                                } else {
+                                    GetTimeAgo getTimeAgo = new GetTimeAgo();
+
+                                    long lastOnline = Long.parseLong(online_status);
+
+                                    String lastOnlineTime = GetTimeAgo.getTimeAgo(lastOnline, getContext());
+
+                                    try {
+                                        friendsViewHolder.setStatusText(lastOnlineTime);
+                                    } catch (NullPointerException e) {
+                                        friendsViewHolder.setStatusText("Online");
+                                    }
+
+
                                 }
 
-
-
                             }
+
+                            friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    CharSequence[] options = new CharSequence[]{"Open Profile", "Send message"};
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                                    builder.setTitle("Select Options");
+                                    builder.setIcon(R.drawable.icon_round);
+                                    builder.setItems(options, (dialog, which) -> {
+                                        switch (which) {
+                                            case 0:
+                                                Intent profile_intent = new Intent(getContext(), FriendsActivity.class);
+                                                profile_intent.putExtra("user_id", list_user_id);
+                                                startActivity(profile_intent);
+                                                break;
+
+                                            case 1:
+                                                Intent chat_intent = new Intent(getContext(), ChatActivity.class);
+                                                chat_intent.putExtra("user_id", list_user_id);
+                                                chat_intent.putExtra("user_name", name);
+                                                startActivity(chat_intent);
+                                                break;
+
+                                            default:
+                                                break;
+
+                                        }
+                                    });
+
+                                    builder.create().show();
+
+                                }
+                            });
+                        }
+                        else{
 
                         }
-
-                        friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                CharSequence[] options = new CharSequence[]{"Open Profile", "Send message"};
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                                builder.setTitle("Select Options");
-                                builder.setIcon(R.drawable.icon_round);
-                                builder.setItems(options, (dialog, which) -> {
-                                    switch(which){
-                                        case 0 :
-                                            Intent profile_intent = new Intent(getContext(), FriendsActivity.class);
-                                            profile_intent.putExtra("user_id",list_user_id);
-                                            startActivity(profile_intent);
-                                            break;
-
-                                        case 1:
-                                            Intent chat_intent = new Intent(getContext(), ChatActivity.class);
-                                            chat_intent.putExtra("user_id",list_user_id);
-                                            chat_intent.putExtra("user_name",name);
-                                            startActivity(chat_intent);
-                                            break;
-
-                                        default:
-                                            break;
-
-                                    }
-                                });
-
-                                builder.create().show();
-
-                            }
-                        });
                     }
 
                     @Override

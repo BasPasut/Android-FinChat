@@ -133,29 +133,30 @@ public class ChatsFragment extends Fragment {
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String user_name = dataSnapshot.child("name").getValue().toString();
+                            String user_thumb = dataSnapshot.child("thumb_image").getValue().toString();
 
-                        final String user_name = dataSnapshot.child("name").getValue().toString();
-                        String user_thumb = dataSnapshot.child("thumb_image").getValue().toString();
+                            if (dataSnapshot.hasChild("online")) {
 
-                        if(dataSnapshot.hasChild("online")){
-
-                            String user_online = dataSnapshot.child("online").getValue().toString();
-                            conversationViewHolder.setUserOnline(user_online);
-                        }
-
-                        conversationViewHolder.setName(user_name);
-                        conversationViewHolder.setUserImage(user_thumb);
-
-                        conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                Intent chat_intent = new Intent(getContext(), ChatActivity.class);
-                                chat_intent.putExtra("user_id",list_user_id);
-                                chat_intent.putExtra("user_name",user_name);
-                                startActivity(chat_intent);
+                                String user_online = dataSnapshot.child("online").getValue().toString();
+                                conversationViewHolder.setUserOnline(user_online);
                             }
-                        });
+
+                            conversationViewHolder.setName(user_name);
+                            conversationViewHolder.setUserImage(user_thumb);
+
+                            conversationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent chat_intent = new Intent(getContext(), ChatActivity.class);
+                                    chat_intent.putExtra("user_id", list_user_id);
+                                    chat_intent.putExtra("user_name", user_name);
+                                    startActivity(chat_intent);
+                                }
+                            });
+                        }
                     }
 
                     @Override
