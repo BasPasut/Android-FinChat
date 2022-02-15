@@ -1,6 +1,6 @@
 # FinChat :zap:
 
-#### Chat application on Android devices base on Line application and Finn from Adventure Time theme.
+#### Chat application on Android devices base on Line application with theme from Finn from Adventure Time.
 
 ## Screenshot of FinChat
 #### FinChat Final v1.8.1    
